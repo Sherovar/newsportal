@@ -12,6 +12,8 @@ public class Content {
 
     private String title;
 
+    private String filename;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
@@ -33,6 +35,13 @@ public class Content {
         this.creationDate = creationDate;
     }
 
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 
     public User getUser() {
         return user;

@@ -13,6 +13,11 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
         </ul>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/content/news">News</a>
+            </li>
+        </ul>
 
         <div class="navbar-text mr-3">${name}</div>
         <@l.logout />
