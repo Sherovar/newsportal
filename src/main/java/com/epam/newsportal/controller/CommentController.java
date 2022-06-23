@@ -53,6 +53,6 @@ public class CommentController {
         Comment comment = commentRepository.findById(id).get();
         comment.setComment(newComment);
         commentRepository.save(comment);
-        return "newspage";
+        return "index";
     }
 }

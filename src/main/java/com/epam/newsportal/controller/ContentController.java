@@ -44,12 +44,6 @@ public class ContentController {
         return "newspage";
     }
 
-//    @GetMapping("findauthor")
-//    public List<Content> findByAuthor(@RequestParam String author){
-//        List<Content> allByAuthor = contentRepository.findAllByAuthor(author);
-//        return allByAuthor;
-//    }
-
     @GetMapping("news")
     public String show(Map<String, Object> model){
         List<Content> news = contentRepository.findAll();
