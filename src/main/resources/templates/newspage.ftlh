@@ -3,6 +3,7 @@
 <#assign
 user = Session.SPRING_SECURITY_CONTEXT.authentication.principal
 name = user.getUsername()
+isAdmin = user.isAdmin()
 >
 <@c.page>
     <div class="card">
@@ -18,7 +19,7 @@ name = user.getUsername()
                 ${content.content}
             </div>
         </div>
-        <#if name == content.username>
+        <#if name == content.username || isAdmin>
             <a class="btn btn-primary" data-toggle="collapse" href="#collapseEditNews" role="button"
                aria-expanded="false"
                aria-controls="collapseEditNews">
@@ -28,7 +29,7 @@ name = user.getUsername()
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <form action="/content/edit/${content.id}" method="post" class="form-inline">
-                            <input type="text" name="newContent" placeholder="Enter news"
+                            <input type="text" name="newContent" placeholder="Enter news" value="${content.content}"
                                    class="form-control mr-2"/>
                             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                             <button type="submit" class="btn btn-primary">Edit</button>
@@ -65,7 +66,7 @@ name = user.getUsername()
                 <a>${comment.id}</a>
                 <span>${comment.comment}</span>
                 <i>${comment.username}</i>
-                <#if name == comment.username>
+                <#if name == comment.username || isAdmin>
                     <a class="btn btn-primary" data-toggle="collapse" href="#collapseEdit" role="button"
                        aria-expanded="false"
                        aria-controls="collapseEdit">
@@ -75,7 +76,7 @@ name = user.getUsername()
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <form action="/comment/edit/${comment.id}" method="post" class="form-inline">
-                                    <input type="text" name="newComment" placeholder="Введите комментарий"
+                                    <input type="text" name="newComment" placeholder="Введите комментарий" value="${comment.comment}"
                                            class="form-control mr-2"/>
                                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                                     <button type="submit" class="btn btn-primary">Edit</button>

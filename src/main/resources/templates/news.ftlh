@@ -1,9 +1,16 @@
 <#import "parts/common.ftlh" as c>
 
+<#assign
+user = Session.SPRING_SECURITY_CONTEXT.authentication.principal
+isAuthor = user.isAuthor()
+>
+
 <@c.page>
+    <#if isAuthor>
     <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        Add new Message
+        Add news
     </a>
+    </#if>
     <div class="collapse" id="collapseExample">
         <div class="form-group mt-3">
             <form action="/content/create" method="post" enctype="multipart/form-data">
