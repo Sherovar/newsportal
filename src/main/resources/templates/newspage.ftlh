@@ -1,5 +1,9 @@
 <#import "parts/common.ftlh" as c>
 
+<#assign
+user = Session.SPRING_SECURITY_CONTEXT.authentication.principal
+name = user.getUsername()
+>
 <@c.page>
     <div class="card">
     <#list news as content>
@@ -14,6 +18,29 @@
                 ${content.content}
             </div>
         </div>
+        <#if name == content.username>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapseEditNews" role="button"
+               aria-expanded="false"
+               aria-controls="collapseEditNews">
+                Edit news
+            </a>
+            <div class="collapse" id="collapseEditNews">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <form action="/content/edit/${content.id}" method="post" class="form-inline">
+                            <input type="text" name="newContent" placeholder="Enter news"
+                                   class="form-control mr-2"/>
+                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </form>
+                        <form action="/content/delete/${content.id}" method="post" class="form-inline">
+                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </#if>
         </div>
         <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
            aria-controls="collapseExample">
@@ -38,10 +65,6 @@
                 <a>${comment.id}</a>
                 <span>${comment.comment}</span>
                 <i>${comment.username}</i>
-                <#assign
-                user = Session.SPRING_SECURITY_CONTEXT.authentication.principal
-                name = user.getUsername()
-                >
                 <#if name == comment.username>
                     <a class="btn btn-primary" data-toggle="collapse" href="#collapseEdit" role="button"
                        aria-expanded="false"
@@ -56,6 +79,10 @@
                                            class="form-control mr-2"/>
                                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                                     <button type="submit" class="btn btn-primary">Edit</button>
+                                </form>
+                                <form action="/comment/delete/${comment.id}" method="post" class="form-inline">
+                                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                                    <button type="submit" class="btn btn-primary">Delete</button>
                                 </form>
                             </div>
                         </div>

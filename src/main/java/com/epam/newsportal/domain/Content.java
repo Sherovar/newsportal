@@ -35,6 +35,10 @@ public class Content {
         this.creationDate = creationDate;
     }
 
+    public String getUsername(){
+        return user != null ? user.getUsername() : "none";
+    }
+
     public String getFilename() {
         return filename;
     }

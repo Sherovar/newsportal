@@ -3,7 +3,8 @@ package com.epam.newsportal.domain;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
-    USER;
+    USER, AUTHOR, ADMIN;
+
 
     @Override
     public String getAuthority() {

@@ -51,9 +51,10 @@ public class ContentController {
         return "news";
     }
 
-    @DeleteMapping("delete")
-    public void delete(@RequestParam Long id){
+    @PostMapping("delete/{id}")
+    public String delete(@PathVariable("id") Long id){
         contentRepository.deleteById(id);
+        return "index";
     }
 
 
@@ -70,6 +71,7 @@ public class ContentController {
                 uploadDir.mkdir();
             }
 
+
             String uuidFile = UUID.randomUUID().toString();
             String resultFilename = uuidFile + "." + file.getOriginalFilename();
 
@@ -83,11 +85,12 @@ public class ContentController {
         return "news";
     }
 
-    @PatchMapping("edit")
-    public void edit(@RequestParam Long id, @RequestParam String newContent){
+    @PostMapping("edit/{id}")
+    public String edit(@PathVariable("id") Long id, @RequestParam String newContent){
         Content content = contentRepository.findById(id).get();
         content.setContent(newContent);
         contentRepository.save(content);
+        return "index";
     }
 
 

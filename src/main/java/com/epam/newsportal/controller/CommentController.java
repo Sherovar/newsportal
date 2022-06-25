@@ -28,10 +28,10 @@ public class CommentController {
     private ContentRepository contentRepository;
 
 
-    @PostMapping("deletecomment")
-    public String delete(@RequestParam Long id) {
+    @PostMapping("delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
         commentRepository.deleteById(id);
-        return "main";
+        return "index";
     }
 
 

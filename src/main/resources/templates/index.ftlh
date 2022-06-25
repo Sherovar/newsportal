@@ -26,5 +26,4 @@
             </form>
         </div>
     </div>
-    <a href="/content/news"> List of news</a>
     </@c.page>
