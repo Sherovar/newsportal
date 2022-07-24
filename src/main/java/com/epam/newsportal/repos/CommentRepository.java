@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     void deleteById(Long id);
-    List<Comment> findAllByContentId(Long id);
+    List<Comment> getAllByContentId(Long id);
 }

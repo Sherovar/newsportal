@@ -10,5 +10,4 @@ import java.util.List;
 @Repository
 public interface ContentRepository extends JpaRepository<Content, Long> {
     void deleteById (Long id);
-    List<Content> findByTitle(String title);
 }

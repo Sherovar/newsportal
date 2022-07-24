@@ -3,8 +3,8 @@ package com.epam.newsportal.controller;
 import com.epam.newsportal.domain.Comment;
 import com.epam.newsportal.domain.Content;
 import com.epam.newsportal.domain.User;
-import com.epam.newsportal.repos.CommentRepository;
-import com.epam.newsportal.repos.ContentRepository;
+import com.epam.newsportal.service.CommentService;
+import com.epam.newsportal.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -23,14 +23,14 @@ import java.util.Map;
 public class CommentController {
 
     @Autowired
-    private CommentRepository commentRepository;
+    CommentService commentService;
     @Autowired
-    private ContentRepository contentRepository;
+    ContentService contentService;
 
 
     @PostMapping("delete/{id}")
     public String delete(@PathVariable("id") Long id) {
-        commentRepository.deleteById(id);
+        commentService.deleteById(id);
         return "index";
     }
 
@@ -38,21 +38,20 @@ public class CommentController {
     @PostMapping("create/{id}")
     public String create(@AuthenticationPrincipal User user, @RequestParam String comment,
                          Map<String, Object> model,@PathVariable("id") Long newsId) {
-        Comment commentNew = new Comment(comment, contentRepository.findById(newsId).get(), user, new Date());
-        commentRepository.save(commentNew);
+        Comment commentNew = new Comment(comment, contentService.getContentById(newsId), user, new Date());
+        commentService.saveComment(commentNew);
         List<Content> contents = new ArrayList<>();
-        contents.add(contentRepository.findById(newsId).get());
-        List<Comment> comments = commentRepository.findAllByContentId(newsId);
-        model.put("comments", comments);
+        contents.add(contentService.getContentById(newsId));
+        model.put("comments", commentService.getByContentId(newsId));
         model.put("news", contents);
         return "newspage";
     }
 
     @PostMapping("edit/{id}")
-    public String edit(@PathVariable("id") Long id, String newComment, Map<String, Object> model) {
-        Comment comment = commentRepository.findById(id).get();
+    public String edit(@PathVariable("id") Long id, String newComment) {
+        Comment comment = commentService.getById(id);
         comment.setComment(newComment);
-        commentRepository.save(comment);
+        commentService.saveComment(comment);
         return "index";
     }
 }

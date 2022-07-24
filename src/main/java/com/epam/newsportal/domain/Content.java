@@ -17,6 +17,9 @@ public class Content {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private UploadedFile uploadedFile;
+
     private String content;
     private Date creationDate;
 
@@ -35,12 +38,22 @@ public class Content {
         this.creationDate = creationDate;
     }
 
+    public UploadedFile getUploadedFile() {
+        return uploadedFile;
+    }
+
+    public void setUploadedFile(UploadedFile uploadedFile) {
+        this.uploadedFile = uploadedFile;
+    }
+
     public String getUsername(){
         return user != null ? user.getUsername() : "none";
     }
 
     public String getFilename() {
-        return filename;
+        if (uploadedFile!=null)
+        return uploadedFile.getFilename();
+        return null;
     }
 
     public void setFilename(String filename) {
