@@ -1,13 +1,13 @@
 package com.epam.newsportal.controller;
 
 
-import com.epam.newsportal.domain.Comment;
 import com.epam.newsportal.domain.Content;
 import com.epam.newsportal.domain.User;
+import com.epam.newsportal.dto.CommentDto;
+import com.epam.newsportal.dto.ContentDto;
 import com.epam.newsportal.service.CommentService;
 import com.epam.newsportal.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -28,15 +28,12 @@ public class ContentController {
     @Autowired
     CommentService commentService;
 
-    @Value("${upload.path}")
-    private String uploadPath;
-
 
     @GetMapping("/{id}")
     public String showById(@PathVariable("id") Long id, Map<String , Object> model){
-        List<Comment> comments = commentService.getByContentId(id);
-        Content content = contentService.getContentById(id);
-        List<Content> news = new ArrayList<>();
+        List<CommentDto> comments = commentService.getByContentId(id);
+        ContentDto content = contentService.getContentById(id);
+        List<ContentDto> news = new ArrayList<>();
         news.add(content);
         model.put("news", news);
         model.put("comments", comments);
@@ -45,7 +42,7 @@ public class ContentController {
 
     @GetMapping("news")
     public String show(Map<String, Object> model){
-        List<Content> news = contentService.getContentList();
+        List<ContentDto> news = contentService.getContentList();
         model.put("news", news);
         return "news";
     }
@@ -61,16 +58,16 @@ public class ContentController {
     public String create(@AuthenticationPrincipal User user, @RequestParam String title,
                          @RequestParam("file") MultipartFile file,
                          @RequestParam String content, Map<String, Object> model) throws IOException {
-        Content contentNew = new Content(user, title, content, new Date());
+        ContentDto contentNew = new ContentDto(user, title, content, new Date());
         contentService.addContent(file, contentNew);
-        List<Content> contents = contentService.getContentList();
+        List<ContentDto> contents = contentService.getContentList();
         model.put("news", contents);
         return "news";
     }
 
     @PostMapping("edit/{id}")
     public String edit(@PathVariable("id") Long id, @RequestParam String newContent){
-        Content content = contentService.getContentById(id);
+        ContentDto content = contentService.getContentById(id);
         content.setContent(newContent);
         contentService.saveContent(content);
         return "index";

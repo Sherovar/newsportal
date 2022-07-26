@@ -58,9 +58,8 @@ public class FileService {
     }
 
     public void deleteFile(Content content){
-        File file = new File(content.getUploadedFile().getFilename());
+        File file = new File(uploadPath + "/" + content.getFilename());
         file.delete();
-        fileRepository.delete(content.getUploadedFile());
     }
 
 }

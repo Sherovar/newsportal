@@ -1,8 +1,8 @@
 package com.epam.newsportal.controller;
 
-import com.epam.newsportal.domain.Comment;
-import com.epam.newsportal.domain.Content;
 import com.epam.newsportal.domain.User;
+import com.epam.newsportal.dto.CommentDto;
+import com.epam.newsportal.dto.ContentDto;
 import com.epam.newsportal.service.CommentService;
 import com.epam.newsportal.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +38,9 @@ public class CommentController {
     @PostMapping("create/{id}")
     public String create(@AuthenticationPrincipal User user, @RequestParam String comment,
                          Map<String, Object> model,@PathVariable("id") Long newsId) {
-        Comment commentNew = new Comment(comment, contentService.getContentById(newsId), user, new Date());
+        CommentDto commentNew = new CommentDto(comment, contentService.getContentById(newsId), user, new Date());
         commentService.saveComment(commentNew);
-        List<Content> contents = new ArrayList<>();
+        List<ContentDto> contents = new ArrayList<>();
         contents.add(contentService.getContentById(newsId));
         model.put("comments", commentService.getByContentId(newsId));
         model.put("news", contents);
@@ -49,9 +49,9 @@ public class CommentController {
 
     @PostMapping("edit/{id}")
     public String edit(@PathVariable("id") Long id, String newComment) {
-        Comment comment = commentService.getById(id);
-        comment.setComment(newComment);
-        commentService.saveComment(comment);
+        CommentDto commentDto = commentService.getById(id);
+        commentDto.setComment(newComment);
+        commentService.saveComment(commentDto);
         return "index";
     }
 }

@@ -8,11 +8,9 @@ import java.util.Date;
 public class Content {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     private String title;
-
-    private String filename;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
@@ -56,10 +54,6 @@ public class Content {
         return null;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
-
     public User getUser() {
         return user;
     }
@@ -72,7 +66,7 @@ public class Content {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
