@@ -1,42 +1,35 @@
 package com.epam.newsportal.dto;
 
-import com.epam.newsportal.domain.UploadedFile;
 import com.epam.newsportal.domain.User;
 
 import java.util.Date;
 
 public class ContentDto {
-    Long id;
-    String content;
-    String title;
-    UploadedFile uploadedFile;
-    User user;
-    Date creationDate;
+    private Long id;
+    public String content;
+    private String title;
+    private Date creationDate;
+    private String username;
 
-    public ContentDto(){}
-
-    public ContentDto(User user, String title, String content, Date creationDate) {
-        this.title = title;
-        this.user = user;
-        this.content = content;
-        this.creationDate = creationDate;
-    }
-
-    public UploadedFile getUploadedFile() {
-        return uploadedFile;
+    public void setUsername(String username){
+        this.username = username;
     }
 
     public String getFilename() {
-        if (uploadedFile!=null)
-            return uploadedFile.getFilename();
-        return null;
-    }
-    public String getUsername(){
-        return user != null ? user.getUsername() : "none";
+        return filename;
     }
 
-    public void setUploadedFile(UploadedFile uploadedFile) {
-        this.uploadedFile = uploadedFile;
+    String filename;
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public ContentDto(){}
+
+
+    public String getUsername(){
+        return username;
     }
 
     public Long getId() {
@@ -61,15 +54,6 @@ public class ContentDto {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Date getCreationDate() {

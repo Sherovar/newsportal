@@ -31,10 +31,10 @@ public class MappingUtils {
     public ContentDto mapToContentDto(Content content){
         ContentDto contentDto = new ContentDto();
         contentDto.setContent(content.getContent());
-        contentDto.setUploadedFile(content.getUploadedFile());
         contentDto.setCreationDate(content.getCreationDate());
+        contentDto.setFilename(content.getFilename());
         contentDto.setTitle(content.getTitle());
-        contentDto.setUser(content.getUser());
+        contentDto.setUsername(content.getUsername());
         contentDto.setId(content.getId());
         return contentDto;
     }
@@ -42,11 +42,9 @@ public class MappingUtils {
     public Content mapToContent(ContentDto contentDto){
         Content content = new Content();
         content.setContent(contentDto.getContent());
-        content.setUploadedFile(contentDto.getUploadedFile());
         content.setTitle(contentDto.getTitle());
         content.setId(contentDto.getId());
         content.setCreationDate(contentDto.getCreationDate());
-        content.setUser(contentDto.getUser());
         return content;
     }
 

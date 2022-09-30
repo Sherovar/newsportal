@@ -27,6 +27,9 @@ public class CommentService {
         commentRepository.deleteById(id);
     }
 
+    public void saveComment(Comment comment){
+        commentRepository.save(comment);
+    }
     public void saveComment(CommentDto commentDto){
         commentRepository.save(mappingUtils.mapToComment(commentDto));
     }

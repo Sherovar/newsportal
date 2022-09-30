@@ -7,18 +7,31 @@ isAuthor = user.isAuthor()
 
 <@c.page>
     <#if isAuthor>
-    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        Add news
-    </a>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+           aria-controls="collapseExample">
+            Add news
+        </a>
     </#if>
-    <div class="collapse" id="collapseExample">
+    <div class="collapse <#if content??>show</#if>" id="collapseExample">
         <div class="form-group mt-3">
             <form action="/content/create" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="title" placeholder="Title" />
+                    <input type="text" class="form-control ${(titleError??)?string('is-invalid','')}"
+                           value="<#if content??>${content.title}</#if>" name="title" placeholder="Title"/>
+                    <#if titleError??>
+                        <div class="invalid-feedback">
+                            ${titleError}
+                        </div>
+                    </#if>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="content" placeholder="Content">
+                    <input type="text" class="form-control ${(contentError??)?string('is-invalid','')}"
+                           value="<#if content??>${content.content}</#if>" name="content" placeholder="Content">
+                    <#if contentError??>
+                        <div class="invalid-feedback">
+                            ${contentError}
+                        </div>
+                    </#if>
                 </div>
                 <div class="form-group">
                     <div class="custom-file">
@@ -26,7 +39,7 @@ isAuthor = user.isAuthor()
                         <label class="custom-file-label" for="customFile">Choose file</label>
                     </div>
                 </div>
-                <input type="hidden" name="_csrf" value="${_csrf.token}" />
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 </div>

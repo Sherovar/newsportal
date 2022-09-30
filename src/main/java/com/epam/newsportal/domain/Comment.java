@@ -1,6 +1,9 @@
 package com.epam.newsportal.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -13,6 +16,9 @@ public class Comment {
     @Id
     @GeneratedValue
     private long id;
+
+    @NotBlank(message = "Please fill comment")
+    @Length(max = 255, message = "comment too long")
     private String comment;
     private Date creationDate;
 

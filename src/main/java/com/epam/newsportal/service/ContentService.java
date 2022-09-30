@@ -1,5 +1,6 @@
 package com.epam.newsportal.service;
 
+import com.epam.newsportal.domain.Content;
 import com.epam.newsportal.dto.ContentDto;
 import com.epam.newsportal.repos.ContentRepository;
 import com.epam.newsportal.utils.MappingUtils;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,8 +26,13 @@ public class ContentService {
         this.mappingUtils = mappingUtils;
     }
 
-    public void addContent(MultipartFile file, ContentDto contentDto) throws IOException {
-        fileService.addFile(file, mappingUtils.mapToContent(contentDto));
+    @Transactional
+    public void addContent(MultipartFile file, Content content) throws IOException {
+        contentRepository.save(content);
+        fileService.addFile(file, content);
+    }
+    public void addContent(Content content){
+        contentRepository.save(content);
     }
 
     public List<ContentDto> getContentList(){

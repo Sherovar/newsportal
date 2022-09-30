@@ -1,10 +1,12 @@
 package com.epam.newsportal.controller;
 
+import com.epam.newsportal.domain.Comment;
 import com.epam.newsportal.domain.User;
 import com.epam.newsportal.dto.CommentDto;
 import com.epam.newsportal.dto.ContentDto;
 import com.epam.newsportal.service.CommentService;
 import com.epam.newsportal.service.ContentService;
+import com.epam.newsportal.utils.MappingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ public class CommentController {
     CommentService commentService;
     @Autowired
     ContentService contentService;
+    @Autowired
+    MappingUtils mappingUtils;
 
 
     @PostMapping("delete/{id}")
@@ -38,7 +42,7 @@ public class CommentController {
     @PostMapping("create/{id}")
     public String create(@AuthenticationPrincipal User user, @RequestParam String comment,
                          Map<String, Object> model,@PathVariable("id") Long newsId) {
-        CommentDto commentNew = new CommentDto(comment, contentService.getContentById(newsId), user, new Date());
+        Comment commentNew = new Comment(comment, mappingUtils.mapToContent(contentService.getContentById(newsId)), user, new Date());
         commentService.saveComment(commentNew);
         List<ContentDto> contents = new ArrayList<>();
         contents.add(contentService.getContentById(newsId));

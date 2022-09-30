@@ -12,7 +12,7 @@ public class UploadedFile {
 
     private String filename;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     private Content content;
 
     public String getFilename() {

@@ -47,9 +47,7 @@ public class FileService {
 
             newFile.setContent(content);
             newFile.setFilename(resultFilename);
-            content.setUploadedFile(newFile);
             fileRepository.save(newFile);
-            contentRepository.save(content);
         }
     }
 

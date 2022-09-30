@@ -1,40 +1,42 @@
 package com.epam.newsportal.domain;
 
-import javax.persistence.*;
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
+
 @Entity
-@Table(name="content")
+@Table(name = "content")
 public class Content {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Please fill content")
+    @Length(max = 2048, message = "content too long")
+    private String content;
+
+    @NotBlank(message = "Please fill title")
+    @Length(max = 255, message = "title too long")
     private String title;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     private UploadedFile uploadedFile;
 
-    private String content;
+
     private Date creationDate;
-
-    public Content() {
-    }
-
-    public Content(String content, String title) {
-        this.title = title;
-        this.content = content;
-    }
-
-    public Content(User user, String title, String content, Date creationDate) {
-        this.title = title;
-        this.user = user;
-        this.content = content;
-        this.creationDate = creationDate;
-    }
 
     public UploadedFile getUploadedFile() {
         return uploadedFile;
@@ -44,13 +46,13 @@ public class Content {
         this.uploadedFile = uploadedFile;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return user != null ? user.getUsername() : "none";
     }
 
     public String getFilename() {
-        if (uploadedFile!=null)
-        return uploadedFile.getFilename();
+        if (uploadedFile != null)
+            return uploadedFile.getFilename();
         return null;
     }
 
@@ -62,7 +64,7 @@ public class Content {
         this.user = user;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
