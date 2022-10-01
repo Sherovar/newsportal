@@ -3,26 +3,21 @@ package com.epam.newsportal.dto;
 import com.epam.newsportal.domain.Content;
 import com.epam.newsportal.domain.User;
 import com.epam.newsportal.utils.MappingUtils;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 public class CommentDto {
-    private final MappingUtils mappingUtils = new MappingUtils();
-
     private long id;
+
+    @NotBlank(message = "Please fill comment")
+    @Length(max = 255, message = "comment too long")
     private String comment;
+
     private Date creationDate;
     private User user;
     private ContentDto contentDto;
-
-    public CommentDto(){};
-
-    public CommentDto(String comment,ContentDto contentDto , User user, Date creationDate) {
-        this.comment = comment;
-        this.creationDate = creationDate;
-        this.user = user;
-        this.contentDto = contentDto;
-    }
 
     public String getUsername(){
         return user != null ? user.getUsername() : "none";

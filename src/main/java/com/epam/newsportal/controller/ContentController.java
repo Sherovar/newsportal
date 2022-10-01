@@ -7,13 +7,12 @@ import com.epam.newsportal.dto.CommentDto;
 import com.epam.newsportal.dto.ContentDto;
 import com.epam.newsportal.service.CommentService;
 import com.epam.newsportal.service.ContentService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.epam.newsportal.utils.MappingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,8 +22,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("content")
@@ -35,6 +32,9 @@ public class ContentController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    MappingUtils mappingUtils;
 
     @GetMapping("/{id}")
     public String showById(@PathVariable("id") Long id, Map<String, Object> model) {
@@ -62,10 +62,11 @@ public class ContentController {
 
     @PostMapping("create")
     public String create(@AuthenticationPrincipal User user,
-                         @Valid Content content,
+                         @Valid ContentDto contentDto,
                          BindingResult bindingResult,
                          Model model,
                          @RequestParam("file") MultipartFile file) throws IOException {
+        Content content = mappingUtils.mapToContent(contentDto);
         content.setUser(user);
         content.setCreationDate(new Date());
         if (bindingResult.hasErrors()){

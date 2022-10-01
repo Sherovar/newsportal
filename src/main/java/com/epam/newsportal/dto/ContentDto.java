@@ -2,11 +2,19 @@ package com.epam.newsportal.dto;
 
 import com.epam.newsportal.domain.User;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class ContentDto {
     private Long id;
+
+    @NotBlank(message = "Please fill content")
+    @Size(max = 2048, message = "content too long")
     public String content;
+
+    @NotBlank(message = "Please fill title")
+    @Size(max = 255, message = "title too long")
     private String title;
     private Date creationDate;
     private String username;

@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 
@@ -22,11 +23,11 @@ public class Content {
     private Long id;
 
     @NotBlank(message = "Please fill content")
-    @Length(max = 2048, message = "content too long")
+    @Size(max = 2048, message = "content too long")
     private String content;
 
     @NotBlank(message = "Please fill title")
-    @Length(max = 255, message = "title too long")
+    @Size(max = 255, message = "title too long")
     private String title;
 
     @ManyToOne(fetch = FetchType.EAGER)

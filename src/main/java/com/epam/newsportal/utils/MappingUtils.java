@@ -4,10 +4,14 @@ import com.epam.newsportal.domain.Comment;
 import com.epam.newsportal.domain.Content;
 import com.epam.newsportal.dto.CommentDto;
 import com.epam.newsportal.dto.ContentDto;
+import com.epam.newsportal.repos.ContentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MappingUtils {
+    @Autowired
+    ContentRepository contentRepository;
 
     public CommentDto mapToCommentDto(Comment comment){
         CommentDto commentDto = new CommentDto();
@@ -19,6 +23,12 @@ public class MappingUtils {
         return commentDto;
     }
 
+    public Comment mapToComment(CommentDto commentDto, Long newsId){
+        Comment comment = new Comment();
+        comment.setComment(commentDto.getComment());
+        comment.setContent((contentRepository.findById(newsId).get()));
+        return comment;
+    }
     public Comment mapToComment(CommentDto commentDto){
         Comment comment = new Comment();
         comment.setComment(commentDto.getComment());

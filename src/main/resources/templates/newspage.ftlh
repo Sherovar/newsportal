@@ -12,7 +12,7 @@ isAdmin = user.isAdmin()
             <div class="m-2">
                 <a href="/content/${content.id}">${content.title}</a>
             </div>
-            <#if content.uploadedFile??>
+            <#if content.filename??>
                 <img src="/img/${content.filename}" class="card-img-top">
             </#if>
             <div class="card-footer text-muted">

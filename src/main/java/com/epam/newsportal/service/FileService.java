@@ -48,6 +48,8 @@ public class FileService {
             newFile.setContent(content);
             newFile.setFilename(resultFilename);
             fileRepository.save(newFile);
+            content.setUploadedFile(newFile);
+            contentRepository.save(content);
         }
     }
 
