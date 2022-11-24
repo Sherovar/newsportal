@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +19,7 @@ public class ContentService {
     @Autowired
     FileService fileService;
 
+
     private final MappingUtils mappingUtils;
 
     public ContentService(MappingUtils mappingUtils) {
@@ -27,12 +27,13 @@ public class ContentService {
     }
 
     @Transactional
-    public void addContent(MultipartFile file, Content content) throws IOException {
+    public void addContent(MultipartFile file, Content content) {
         contentRepository.save(content);
         fileService.addFile(file, content);
     }
     public void addContent(Content content){
         contentRepository.save(content);
+
     }
 
     public List<ContentDto> getContentList(){

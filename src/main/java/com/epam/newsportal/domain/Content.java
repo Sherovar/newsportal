@@ -1,6 +1,5 @@
 package com.epam.newsportal.domain;
 
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

@@ -8,6 +8,8 @@ import com.epam.newsportal.dto.ContentDto;
 import com.epam.newsportal.service.CommentService;
 import com.epam.newsportal.service.ContentService;
 import com.epam.newsportal.utils.MappingUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("content")
 public class ContentController {
+    Logger logger = LoggerFactory.getLogger(ContentController.class);
 
     @Autowired
     ContentService contentService;

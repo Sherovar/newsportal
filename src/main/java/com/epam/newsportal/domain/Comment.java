@@ -10,8 +10,10 @@ import java.util.Date;
 @Table(name = "comments")
 
 public class Comment {
+
     public Comment() {
     }
+
 
     @Id
     @GeneratedValue
