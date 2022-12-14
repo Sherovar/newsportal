@@ -1,6 +1,9 @@
 package com.epam.newsportal.domain;
 
 
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;

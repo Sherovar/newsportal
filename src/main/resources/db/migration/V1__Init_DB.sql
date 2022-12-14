@@ -1,4 +1,4 @@
-create sequence hibernate_sequence start 2 increment 1;
+create sequence hibernate_sequence start 1 increment 1;
 
 create table comments
 (
@@ -44,26 +44,3 @@ create table users
     primary key (id)
 );
 
-alter table if exists comments
-    add constraint comments_content_fk
-        foreign key (content_id) references content;
-
-alter table if exists comments
-    add constraint comments_user_fk
-        foreign key (user_id) references users;
-
-alter table if exists content
-    add constraint content_file_fk
-        foreign key (uploaded_file_id) references file;
-
-alter table if exists content
-    add constraint content_user_fk
-        foreign key (user_id) references users;
-
-alter table if exists file
-    add constraint file_content_fk
-        foreign key (content_id) references content;
-
-alter table if exists user_role
-    add constraint user_role_user_fk
-        foreign key (user_id) references users;

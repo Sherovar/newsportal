@@ -17,7 +17,7 @@ isAuthor = user.isAuthor()
             <form action="/content/create" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <input type="text" class="form-control ${(titleError??)?string('is-invalid','')}"
-                           value="<#if content??>${content.title}</#if>" name="title" placeholder="Title"/>
+                           value="<#if content??>${content.title}</#if>" name="title" placeholder="Title" />
                     <#if titleError??>
                         <div class="invalid-feedback">
                             ${titleError}
@@ -26,7 +26,7 @@ isAuthor = user.isAuthor()
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control ${(contentError??)?string('is-invalid','')}"
-                           value="<#if content??>${content.content}</#if>" name="content" placeholder="Content">
+                           value="<#if content??>${content.content}</#if>" name="content" placeholder="Content" />
                     <#if contentError??>
                         <div class="invalid-feedback">
                             ${contentError}
@@ -35,11 +35,11 @@ isAuthor = user.isAuthor()
                 </div>
                 <div class="form-group">
                     <div class="custom-file">
-                        <input type="file" name="file" id="customFile">
+                        <input type="file" name="file" id="customFile" />
                         <label class="custom-file-label" for="customFile">Choose file</label>
                     </div>
                 </div>
-                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <input type="hidden" name="_csrf" value="${_csrf.token}" />
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 </div>
@@ -48,9 +48,9 @@ isAuthor = user.isAuthor()
     </div>
     <a href="/content/news"> List of news</a>
 
-    <div class="card-columns">
+    <div class="card-columns" id="content-list">
         <#list news as content>
-            <div class="card my-3">
+            <div class="card my-3" data-id="${content.id}">
                 <div class="m-2">
                     <a href="/content/${content.id}">${content.title}</a>
                 </div>
@@ -58,7 +58,7 @@ isAuthor = user.isAuthor()
                     <img src="/img/${content.filename}" class="card-img-top">
                 </#if>
                 <div class="card-footer text-muted">
-                    ${content.content}
+                   <span>${content.content}</span>
                 </div>
             </div>
         <#else>
