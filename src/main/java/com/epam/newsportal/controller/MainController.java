@@ -5,11 +5,13 @@ import com.epam.newsportal.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 import java.util.Map;
 
 @Controller
+@ApiIgnore
 public class MainController {
     @Autowired
     ContentService contentService;

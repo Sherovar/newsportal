@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -27,6 +28,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("content")
+@ApiIgnore
 public class ContentController {
     Logger logger = LoggerFactory.getLogger(ContentController.class);
 

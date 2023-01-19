@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("comment")
+@ApiIgnore
 public class CommentController {
 
     @Autowired
