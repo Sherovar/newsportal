@@ -1,0 +1,5 @@
+FROM openjdk:11.0.7-jdk-slim
+
+COPY target/newsportal-1.0-SNAPSHOT.jar /newsportal.jar
+
+CMD ["java", "-jar", "/newsportal.jar"]
